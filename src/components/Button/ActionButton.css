@@ -1,0 +1,12 @@
+.ActionButton-container {
+    border: 1px solid #78849E66;
+    border-radius: 20px;
+    opacity: 1;
+    background: white;
+    cursor: pointer;
+}
+
+.ActionButton-label {
+    padding: 8px 12px 8px 12px;
+    color: #78849E;
+}

@@ -1,0 +1,27 @@
+table {
+    margin-top: 46px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-transform: uppercase;
+    color: #0B749B;
+    border-bottom: 1px solid #0B749B;
+    opacity: 0.6;
+    padding: 8px 8px 0px 0px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.align {
+    text-align: center;
+}
+
+td {
+    color: #536B7A;
+    border-bottom: 1px solid #9AAEBB;
+    font-size: 20px;
+    height: 50px;
+}
+

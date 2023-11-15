@@ -1,9 +1,9 @@
 import React from "react";
+import Movies from "./containers/Movies";
 
 const App = () => {
   return (
-      <div>
-      </div>
+      <Movies />
   );
 }
 

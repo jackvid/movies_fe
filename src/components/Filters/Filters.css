@@ -1,0 +1,11 @@
+.Filters-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+}
+
+.Filters-spacing {
+    margin-right: 16px
+}
+
