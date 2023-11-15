@@ -28,7 +28,8 @@ const labels = [
 const MoviesTable = (props) => {
 
     const {
-        movies
+        movies,
+        onMovieClicked
     } = props;
 
     return (
@@ -56,7 +57,7 @@ const MoviesTable = (props) => {
                                 <td align="left">{movie.title}</td>
                                 <td align="left">{movie.year}</td>
                                 <td align="left">{movie.revenue}</td>
-                                <td align="center"><img src={require('../../image/eye.png')} alt="not good"/></td>
+                                <td onClick={() => onMovieClicked(movie.movieId)} align="center"><img src={require('../../image/eye.png')} alt="Details"/></td>
                             </tr>
                         )
                     })

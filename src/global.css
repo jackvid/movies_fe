@@ -3,4 +3,6 @@ body {
     margin: 0;
     height: 101vh;
     overflow-y: scroll;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
 }

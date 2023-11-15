@@ -5,14 +5,21 @@ import MovieRankingLabel from "../components/MovieRankingLabel/MovieRankingLabel
 import Filters from "../components/Filters/Filters";
 import MoviesTable from "../components/MovieTable/MoviesTable";
 import RestApiGet from "../api/ReatApiGet";
+import DialogMovieDetails from "./DialogMovieDetails";
 
 const Movies = () => {
 
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
     const [page, setPage] = useState(0);
     const [allLoaded, setAllLoaded] = useState(false);
+
+    const [selectedMovieId, setSelectedMovieId] = useState(null);
+
+    const [top10ByRevenueActive, setTop10ByRevenueActive] = useState(false);
+    const [top10RevenuePerYearActive, setTop10RevenuePerYearActive] = useState(false);
+
+    const [dialogMovieDetailsOpen, setDialogMovieDetailsOpen] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -33,7 +40,6 @@ const Movies = () => {
     const fetchData = async () => {
         if(isLoading || allLoaded) return;
         setIsLoading(true);
-        setError(null);
 
         try {
             const data = await RestApiGet.getData('/movies', '?page=' + page);
@@ -43,20 +49,32 @@ const Movies = () => {
             setMovies(prevMovies => [...prevMovies, ...data]);
             setPage(prevPage => prevPage + 1);
         } catch (error) {
-            setError(error);
+            console.log(error);
         } finally {
             setIsLoading(false);
         }
     };
 
+    const handleTop10RevenueClicked = async () => {
+        setAllLoaded(true);
+        const data = await RestApiGet.getData('/movies', '?page=0&topTenRevenue=true');
+        setMovies(data);
+        setTop10ByRevenueActive(true);
+    }
 
-    //Ovo ide u state od movies list
-    //const [movies, setMovies] = useState([]);
+    const handleTop10RevenuePerYearClicked = () => {
 
-    //ovdje ce ici state od Top 10 Revenu i Top 10 revenu by year buttona
+    }
 
-    //I need to implement use effect for fetching data and put in that use effect scroll
-    //funcionality
+    const handleMovieClicked = (movieId) => {
+        setDialogMovieDetailsOpen(true);
+        setSelectedMovieId(movieId);
+    }
+
+    const handleMovieDetailsClose = () => {
+        setDialogMovieDetailsOpen(false);
+        setSelectedMovieId(null);
+    }
 
     return (
         <>
@@ -64,13 +82,25 @@ const Movies = () => {
             <div className="Movies-container">
                 <div className="Movies-content">
                     <MovieRankingLabel />
-                    <Filters />
-                    <MoviesTable movies={movies}/>
+                    <Filters
+                        top10ByRevenueActive={top10ByRevenueActive}
+                        top10RevenuePerYearActive={top10RevenuePerYearActive}
+                        onTop10RevenueClicked={handleTop10RevenueClicked}
+                        onTop10RevenuePerYearClicked={handleTop10RevenuePerYearClicked}
+                    />
+                    <MoviesTable
+                        onMovieClicked={handleMovieClicked}
+                        movies={movies}
+                    />
                     {isLoading && <p>Loading...</p>}
-                    {error && <p>Error: {error.message}</p>}
-                    {allLoaded && <p>All data has been loaded</p>}
+                    {allLoaded && <p>All data have been loaded</p>}
                 </div>
             </div>
+            <DialogMovieDetails
+                open={dialogMovieDetailsOpen}
+                movieId={selectedMovieId}
+                onMovieDetailsClose={handleMovieDetailsClose}
+            />
         </>
     );
 }
