@@ -1,6 +1,6 @@
 import React from "react";
 import ActionButton from "../Button/ActionButton";
-import "./Filters.css"
+import "./Filters.css";
 
 
 const Filters = (props) => {
@@ -9,7 +9,8 @@ const Filters = (props) => {
         top10ByRevenueActive,
         top10RevenuePerYearActive,
         onTop10RevenueClicked,
-        onTop10RevenuePerYearClicked
+        onTop10RevenuePerYearClicked,
+        onRefresh
     } = props;
 
     return (
@@ -29,12 +30,14 @@ const Filters = (props) => {
                 />
             </div>
             {
-                /**
-                 * If revenue per year activated we need to change label of that button above "Top ten Revenue 2011"
-                 * and we need to show additional reload button
-                 *
-                 * <ActionButton />
-                 */
+                top10ByRevenueActive || top10RevenuePerYearActive ?
+                    (
+                        <div onClick={onRefresh} className="Filters-repeat">
+                            <img src={require('../../image/repeat.png')} alt="Repeat not working"/>
+                        </div>
+                    )
+                :
+                    null
             }
         </div>
     );

@@ -9,8 +9,6 @@ import "./DialogMovieDetails.css";
 import RestApiGet from "../api/ReatApiGet";
 import MovieDetailsContent from "../components/MovieDetails/MovieDetailsContent";
 
-
-
 const DialogMovieDetails = (props) => {
 
     const [movie, setMovie] = useState({});
@@ -36,6 +34,7 @@ const DialogMovieDetails = (props) => {
             aria-labelledby="customized-dialog-title"
             maxWidth="md"
             onClose={onMovieDetailsClose}
+            PaperProps={{sx: { m: 0 }}}
         >
                 <DialogTitle
                     sx={{ m: 0, p: 2 }}
@@ -61,7 +60,7 @@ const DialogMovieDetails = (props) => {
                     </div>
                 </IconButton>
                 <img className="DialogMovieDetails-line" src={require('../image/line.png')} alt="Close"/>
-                <DialogContent>
+                <DialogContent sx={{p: 2}}>
                     <MovieDetailsContent
                         movie={movie}
                     />

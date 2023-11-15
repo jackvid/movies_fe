@@ -6,8 +6,9 @@ import Filters from "../components/Filters/Filters";
 import MoviesTable from "../components/MovieTable/MoviesTable";
 import RestApiGet from "../api/ReatApiGet";
 import DialogMovieDetails from "./DialogMovieDetails";
+import DialogSelectYear from "../components/DialogSelectYear";
 
-const Movies = () => {
+const Movies = (props) => {
 
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,7 @@ const Movies = () => {
     const [top10RevenuePerYearActive, setTop10RevenuePerYearActive] = useState(false);
 
     const [dialogMovieDetailsOpen, setDialogMovieDetailsOpen] = useState(false);
+    const [dialogSelectYearOpen, setDialogSelectYearOpen] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -57,13 +59,11 @@ const Movies = () => {
 
     const handleTop10RevenueClicked = async () => {
         setAllLoaded(true);
+        setPage(0);
         const data = await RestApiGet.getData('/movies', '?page=0&topTenRevenue=true');
         setMovies(data);
+        setTop10RevenuePerYearActive(false);
         setTop10ByRevenueActive(true);
-    }
-
-    const handleTop10RevenuePerYearClicked = () => {
-
     }
 
     const handleMovieClicked = (movieId) => {
@@ -76,6 +76,32 @@ const Movies = () => {
         setSelectedMovieId(null);
     }
 
+    const handleTop10RevenuePerYearClicked = () => {
+        setDialogSelectYearOpen(true);
+    }
+
+    const handleSelectYearClose = () => {
+        setDialogSelectYearOpen(false);
+    }
+
+    const handleSelectYearClick = async (year) => {
+        setAllLoaded(true);
+        setPage(0);
+        const data = await RestApiGet.getData('/movies', '?page=0&topTenRevenue=true&year=' + year);
+        setMovies(data);
+        setTop10RevenuePerYearActive(true);
+        setTop10ByRevenueActive(false);
+        setDialogSelectYearOpen(false);
+    }
+
+    const handleRefresh = () => {
+        onReset();
+    }
+
+    const {
+        onReset
+    } = props;
+
     return (
         <>
             <Header/>
@@ -87,6 +113,7 @@ const Movies = () => {
                         top10RevenuePerYearActive={top10RevenuePerYearActive}
                         onTop10RevenueClicked={handleTop10RevenueClicked}
                         onTop10RevenuePerYearClicked={handleTop10RevenuePerYearClicked}
+                        onRefresh={handleRefresh}
                     />
                     <MoviesTable
                         onMovieClicked={handleMovieClicked}
@@ -100,6 +127,11 @@ const Movies = () => {
                 open={dialogMovieDetailsOpen}
                 movieId={selectedMovieId}
                 onMovieDetailsClose={handleMovieDetailsClose}
+            />
+            <DialogSelectYear
+                open={dialogSelectYearOpen}
+                onSelectYearClose={handleSelectYearClose}
+                onSelectYearClick={handleSelectYearClick}
             />
         </>
     );

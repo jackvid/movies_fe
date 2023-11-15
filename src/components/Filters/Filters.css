@@ -6,6 +6,15 @@
 }
 
 .Filters-spacing {
-    margin-right: 16px
+    margin-right: 12px
 }
+
+.Filters-repeat {
+    cursor: pointer;
+    margin-top: 6px;
+    width: 24px;
+    height: 24px;
+}
+
+
 

@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import Movies from "./containers/Movies";
 
 const App = () => {
+  const [seed, setSeed] = useState(1);
+
+  const handleReset = () => {
+    setSeed(Math.random());
+  }
+
   return (
-      <Movies />
+      <Movies
+          key={seed}
+          onReset={handleReset}
+      />
   );
 }
 
