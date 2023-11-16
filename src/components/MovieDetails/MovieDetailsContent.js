@@ -3,6 +3,7 @@ import {
     Grid,
     Typography
 } from '@mui/material';
+import MovieDetailsLabel from "./MovieDetailsLabel";
 
 const MovieDetailsContent = (props) => {
 
@@ -10,46 +11,69 @@ const MovieDetailsContent = (props) => {
         movie
     } = props;
 
+    debugger;
+
     return (
         <Grid
             rowSpacing={2}
+            columnSpacing={2}
             container
         >
             <Grid item sm={12} xs={12}>
-                <Typography variant="subtitle2">Year</Typography>
-                <Typography variant="subtitle1">{movie.year}</Typography>
+                <MovieDetailsLabel
+                    label="Year"
+                    content={movie.year}
+                />
             </Grid>
             <Grid item sm={12} xs={12}>
-                <Typography variant="subtitle2">Genre</Typography>
-                <Typography variant="subtitle1">{movie.genre && movie.genre.name}</Typography>
+                <MovieDetailsLabel
+                    label="Genre"
+                    content={movie.genres && movie.genres.map(genre => genre.name).join(" ")}
+                />
             </Grid>
             <Grid item sm={12} xs={12}>
-                <Typography variant="subtitle2">Description</Typography>
-                <Typography variant="subtitle1">{movie.description}</Typography>
+                <MovieDetailsLabel
+                    label="Description"
+                    content={movie.description}
+                />
             </Grid>
             <Grid item sm={3} xs={3}>
-                <Typography variant="subtitle2">Director</Typography>
-                <Typography variant="subtitle1">{movie.directos && movie.directos.map(director => director.fullName)}</Typography>
+                <MovieDetailsLabel
+                    label="Directors"
+                    style={{ color: '#00BAFF' }}
+                    content={movie.directors && movie.directors.map(director => director.fullName).join(" ")}
+                />
             </Grid>
             <Grid item sm={9} xs={9}>
-                <Typography variant="subtitle2">Actors</Typography>
-                <Typography variant="subtitle1">{movie.actors && movie.actors.map(actor => actor.fullName)}</Typography>
+                <MovieDetailsLabel
+                    label="Actors"
+                    style={{ color: '#00BAFF' }}
+                    content={movie.actors && movie.actors.map(actor => actor.fullName).join(" ")}
+                />
             </Grid>
             <Grid item sm={12} xs={12}>
-                <Typography variant="subtitle2">Runtime</Typography>
-                <Typography variant="subtitle1">{movie.runtime}</Typography>
+                <MovieDetailsLabel
+                    label="Runtime"
+                    content={movie.runtime + " mins"}
+                />
             </Grid>
             <Grid item sm={12} xs={12}>
-                <Typography variant="subtitle2">Votes</Typography>
-                <Typography variant="subtitle1">{movie.votes}</Typography>
+                <MovieDetailsLabel
+                    label="Votes"
+                    content={movie.votes}
+                />
             </Grid>
             <Grid item sm={12} xs={12}>
-                <Typography variant="subtitle2">Revenue</Typography>
-                <Typography variant="subtitle1">${movie.revenue}</Typography>
+                <MovieDetailsLabel
+                    label="Revenue"
+                    content={"$" + (movie.revenue && movie.revenue.toLocaleString())}
+                />
             </Grid>
             <Grid item sm={12} xs={12}>
-                <Typography variant="subtitle2">Revenue</Typography>
-                <Typography variant="subtitle1">${movie.metascore}</Typography>
+                <MovieDetailsLabel
+                    label="Metascore"
+                    content={movie.metaScore}
+                />
             </Grid>
         </Grid>
     );

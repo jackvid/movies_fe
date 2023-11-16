@@ -33,7 +33,8 @@ const Movies = (props) => {
     }, [isLoading]);
 
     const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoading) {
+        const isScrollToBottom = document.documentElement.clientHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight;
+        if(!isScrollToBottom || isLoading) {
             return;
         }
         fetchData();

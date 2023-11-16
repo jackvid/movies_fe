@@ -56,7 +56,7 @@ const MoviesTable = (props) => {
                                 <td align="center">{index + 1}</td>
                                 <td align="left">{movie.title}</td>
                                 <td align="left">{movie.year}</td>
-                                <td align="left">{movie.revenue}</td>
+                                <td align="left">${movie.revenue.toLocaleString()}</td>
                                 <td
                                     style= {{cursor: "pointer"}}
                                     onClick={() => onMovieClicked(movie.movieId)}
